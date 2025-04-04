@@ -1,103 +1,132 @@
 import Image from "next/image";
+import Link from "next/link";
+import { 
+  LineChart, 
+  BarChartBig, 
+  Wallet, 
+  ShieldCheck, 
+  Users, 
+  Microscope, 
+  Building, 
+  ChevronRight 
+} from "lucide-react";
+
+import { Card } from "@/components/ui/card";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const roles = [
+    {
+      title: "CEO",
+      description: "Executive overview and strategic insights.",
+      icon: <LineChart className="h-6 w-6 text-blue-600" />,
+      href: "/dashboards/ceo",
+    },
+    {
+      title: "CFO",
+      description: "Financial overview and analytics dashboard.",
+      icon: <Wallet className="h-6 w-6 text-blue-600" />,
+      href: "/dashboards/cfo",
+    },
+    {
+      title: "Governance",
+      description: "Compliance and regulatory dashboard.",
+      icon: <ShieldCheck className="h-6 w-6 text-blue-600" />,
+      href: "/dashboards/governance",
+    },
+    {
+      title: "CRM and Sales",
+      description: "Customer relationship and sales analytics.",
+      icon: <Users className="h-6 w-6 text-blue-600" />,
+      href: "/dashboards/crm",
+    },
+    {
+      title: "Quality Officer",
+      description: "Quality control and standards dashboard.",
+      icon: <Microscope className="h-6 w-6 text-blue-600" />,
+      href: "/dashboards/quality",
+    },
+    {
+      title: "Operations Team",
+      description: "Operational metrics and efficiency tracking.",
+      icon: <Building className="h-6 w-6 text-blue-600" />,
+      href: "/dashboards/operations",
+    },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <main className="flex h-screen flex-col overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="fixed inset-0 -z-10">
+        <Image
+          src="/background.png"
+          alt="Blueberry Background"
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: "cover" }}
+        />
+        <div className="absolute inset-0 bg-indigo-950/40" />
+      </div>
+
+      {/* Header */}
+      <header className="w-full py-4 px-6 flex justify-between items-center bg-indigo-950/70 shadow-md backdrop-blur-sm">
+        <div className="relative h-12 w-40">
+          <Image
+            src="/agnext-white-png.png"
+            alt="AgNext Logo"
+            fill
+            sizes="160px"
+            style={{ objectFit: "contain" }}
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <div className="relative h-10 w-40">
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/agrovision logo.png"
+            alt="Agrovision Logo"
+            fill
+            sizes="160px"
+            style={{ objectFit: "contain" }}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </div>
+      </header>
+
+      {/* Main Content - With responsive adjustments */}
+      <div className="flex-1 flex items-center justify-center p-4">
+        <div className="max-w-7xl w-full backdrop-blur-sm bg-white/10 rounded-xl p-4 shadow-xl">
+          <div className="text-center mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">
+              Welcome to Agrovision Dashboards
+            </h1>
+            <p className="text-base sm:text-lg text-indigo-100">
+              Select your role to access your personalized dashboard.
+            </p>
+          </div>
+
+          {/* Role Grid - Responsive columns */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+            {roles.map((role, index) => (
+              <Link href={role.href} key={index}>
+                <Card className="h-full bg-white/90 hover:bg-white transition-all duration-300 hover:shadow-lg border-0 group">
+                  <div className="p-3 flex flex-col h-full">
+                    <div className="flex items-center">
+                      <div className="mr-2 sm:mr-3 p-1.5 sm:p-2 bg-indigo-100 rounded-full">
+                        {role.icon}
+                      </div>
+                      <h3 className="text-base sm:text-lg font-bold text-indigo-950 truncate">
+                        {role.title}
+                      </h3>
+                    </div>
+                    <p className="text-xs sm:text-sm text-gray-600 mt-1 flex-grow line-clamp-2">{role.description}</p>
+                    <div className="flex justify-end">
+                      <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-700 transform group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
