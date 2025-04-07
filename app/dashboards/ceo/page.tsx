@@ -8,6 +8,8 @@ import {
   Users,
   UserPlus,
   PieChart,
+  BarChart,
+  LineChart,
   AlertTriangle,
   Award,
   PercentCircle,
@@ -15,6 +17,7 @@ import {
   Settings,
   X,
   Plus,
+  Save,
   RotateCcw,
   Store as StoreIcon,
   ShoppingCart,
@@ -24,7 +27,12 @@ import {
   ShieldAlert,
   CheckCircle,
   Sprout,
-  PackageCheck
+  PackageCheck,
+  AreaChart,
+  Map as HeatMap,
+  ActivitySquare,
+  Layers,
+  ListChecks
 } from "lucide-react";
 import {
   Card,
@@ -49,6 +57,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Define the shape of a metric
 interface KpiMetric {
@@ -118,61 +127,44 @@ export default function CEODashboard() {
   type TableId = typeof allTables[number]['id'];
   
   // State to track which elements are visible
-  const [visibleMetrics, setVisibleMetrics] = useState<MetricId[]>(
-    allMetrics.filter(m => m.default).map(m => m.id)
-  );
-  
-  const [visibleCharts, setVisibleCharts] = useState<ChartId[]>(
-    allCharts.filter(c => c.default).map(c => c.id)
-  );
-  
-  const [visibleTables, setVisibleTables] = useState<TableId[]>(
-    allTables.filter(t => t.default).map(t => t.id)
-  );
-  
-  // Load preferences from localStorage
-  useEffect(() => {
+  const [visibleMetrics, setVisibleMetrics] = useState<MetricId[]>(() => {
+    // Try to get saved preferences from localStorage
     if (typeof window !== 'undefined') {
-      try {
-        const savedMetrics = localStorage.getItem('ceo-dashboard-metrics');
-        const savedCharts = localStorage.getItem('ceo-dashboard-charts');
-        const savedTables = localStorage.getItem('ceo-dashboard-tables');
-        
-        if (savedMetrics) {
-          const parsedMetrics = JSON.parse(savedMetrics);
-          if (Array.isArray(parsedMetrics)) {
-            setVisibleMetrics(parsedMetrics);
-          }
-        }
-        if (savedCharts) {
-          const parsedCharts = JSON.parse(savedCharts);
-          if (Array.isArray(parsedCharts)) {
-            setVisibleCharts(parsedCharts);
-          }
-        }
-        if (savedTables) {
-          const parsedTables = JSON.parse(savedTables);
-          if (Array.isArray(parsedTables)) {
-            setVisibleTables(parsedTables);
-          }
-        }
-      } catch (error) {
-        console.error("Error loading dashboard preferences:", error);
-        // If there's an error, we'll just use the defaults
+      const saved = localStorage.getItem('ceo-dashboard-metrics');
+      if (saved) {
+        return JSON.parse(saved);
       }
     }
-  }, []);
+    // Default to showing all default metrics
+    return allMetrics.filter(m => m.default).map(m => m.id);
+  });
+  
+  const [visibleCharts, setVisibleCharts] = useState<ChartId[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('ceo-dashboard-charts');
+      if (saved) {
+        return JSON.parse(saved);
+      }
+    }
+    return allCharts.filter(c => c.default).map(c => c.id);
+  });
+  
+  const [visibleTables, setVisibleTables] = useState<TableId[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('ceo-dashboard-tables');
+      if (saved) {
+        return JSON.parse(saved);
+      }
+    }
+    return allTables.filter(t => t.default).map(t => t.id);
+  });
   
   // Save preferences when they change
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('ceo-dashboard-metrics', JSON.stringify(visibleMetrics));
-        localStorage.setItem('ceo-dashboard-charts', JSON.stringify(visibleCharts));
-        localStorage.setItem('ceo-dashboard-tables', JSON.stringify(visibleTables));
-      } catch (error) {
-        console.error("Error saving dashboard preferences:", error);
-      }
+      localStorage.setItem('ceo-dashboard-metrics', JSON.stringify(visibleMetrics));
+      localStorage.setItem('ceo-dashboard-charts', JSON.stringify(visibleCharts));
+      localStorage.setItem('ceo-dashboard-tables', JSON.stringify(visibleTables));
     }
   }, [visibleMetrics, visibleCharts, visibleTables]);
   
