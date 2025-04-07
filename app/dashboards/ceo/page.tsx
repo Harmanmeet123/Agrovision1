@@ -8,16 +8,11 @@ import {
   Users,
   UserPlus,
   PieChart,
-  BarChart,
-  LineChart,
-  AlertTriangle,
-  Award,
   PercentCircle,
   RefreshCw,
   Settings,
   X,
   Plus,
-  Save,
   RotateCcw,
   Store as StoreIcon,
   ShoppingCart,
@@ -28,11 +23,8 @@ import {
   CheckCircle,
   Sprout,
   PackageCheck,
-  AreaChart,
-  Map as HeatMap,
-  ActivitySquare,
-  Layers,
-  ListChecks
+  AlertTriangle,
+  Award
 } from "lucide-react";
 import {
   Card,
@@ -57,7 +49,6 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Define the shape of a metric
 interface KpiMetric {
